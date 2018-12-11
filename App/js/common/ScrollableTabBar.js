@@ -12,6 +12,7 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const iosButton = (props) => {
@@ -76,6 +77,10 @@ export default class ScrollableTabBar extends Component {
     renderTab: PropTypes.func,
     underlineStyle: ViewPropTypes.style,
     onScroll: PropTypes.func,
+    left: PropTypes.any,
+    leftStyle: ViewPropTypes.style,
+    leftTitleStyle: ViewPropTypes.style,
+    leftTitle: PropTypes.string,
   };
 
   componentDidMount() {
@@ -187,6 +192,14 @@ export default class ScrollableTabBar extends Component {
     this.updateView({value: this.props.scrollValue.__getValue(),});
   }
 
+  left(props) {
+    if (this.props.left === false) {
+      return null;
+    } else if (this.props.left) {
+      return React.cloneElement(this.props.left(props), props);
+    }
+  }
+
   render() {
     const tabUnderlineStyle = {
       position: 'absolute',
@@ -194,16 +207,22 @@ export default class ScrollableTabBar extends Component {
       backgroundColor: 'navy',
       bottom: 0,
     };
-
     const dynamicTabUnderline = {
       left: this.state._leftTabUnderline,
       width: this.state._widthTabUnderline,
     };
 
     return (<View
-        style={[styles.container, {backgroundColor: this.props.backgroundColor,}, this.props.style,]}
+        style={[styles.container, {backgroundColor: this.props.backgroundColor,}, this.props.style, {flexDirection: 'row'}]}
         onLayout={this.onContainerLayout}
       >
+        <View>
+          <Button>
+            <View style={{alignItems: 'center', justifyContent: 'center', height: 49, paddingLeft: 20}}>
+              <Text style={{color: 'mintcream'}}>5ING</Text>
+            </View>
+          </Button>
+        </View>
         <ScrollView
           ref={(scrollView) => {
             this._scrollView = scrollView;
@@ -236,6 +255,15 @@ export default class ScrollableTabBar extends Component {
             ]}/>
           </View>
         </ScrollView>
+        <View>
+          <Button
+            onPress={() => this.props.navigation.navigate('SearchPage')}
+          >
+            <View style={{alignItems: 'center', justifyContent: 'center', height: 49, paddingRight: 20}}>
+              <Icon name={'search'} size={20} color={'mintcream'}/>
+            </View>
+          </Button>
+        </View>
       </View>
     );
   }

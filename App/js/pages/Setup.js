@@ -13,6 +13,7 @@ import OnlinePage from "./OnlinePage";
 import MyPage from "./MyPage";
 import MainPage from './MainPage';
 import Badge from "react-native-tab-navigator/Badge";
+import SearchPage from './home/SearchPage'
 
 
 // tab 导航
@@ -46,7 +47,6 @@ const TabNavigatorDemo = TabNavigator(
   {
     navigationOptions: ({navigation}) => ({
       tabBarIcon: ({focused, tintColor}) => {
-        console.log(navigation);
         const {routeName} = navigation.state;
         if (routeName === 'MusicWarehouse') {
           return (<Image
@@ -70,10 +70,10 @@ const TabNavigatorDemo = TabNavigator(
                 style={[{width: 24, height: 24}, {tintColor: tintColor}]}
               /></View>)
         } else if (routeName === 'Me') {
-          return <Image
+          return (<Image
             source={require('../../resource/images/ic_home_white_me_60.png')}
             style={[{width: 24, height: 24}, {tintColor: tintColor}]}
-          />
+          />)
         }
       },
     }),
@@ -109,6 +109,12 @@ const Setup = StackNavigator({
       // headerStyle:{
       //   backgroundColor: '#28beb4'
       // }
+    }
+  },
+  SearchPage:{
+    screen: SearchPage,
+    navigationOptions:{
+      header: null
     }
   }
 });
