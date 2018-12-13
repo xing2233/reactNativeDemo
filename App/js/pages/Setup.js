@@ -2,7 +2,7 @@
  * 初始化页面
  */
 import React from 'react'
-import {StackNavigator, TabNavigator} from "react-navigation";
+import {StackNavigator, TabNavigator,TabBarBottom} from "react-navigation";
 import WelcomePage from './WelcomePage';
 import HomePage from './HomePage';
 import {
@@ -77,13 +77,26 @@ const TabNavigatorDemo = TabNavigator(
         }
       },
     }),
-    // tabBarComponent: TabBarBottom,
+    // two type component
+    tabBarComponent: TabBarBottom,
+
     tabBarPosition: 'bottom',
+    // no idea
+    // initialLayout: {
+    //   height:0,
+    //   width: 22,
+    // },
     tabBarOptions: {
       // 设置tab选中颜色
       activeTintColor: '#28beb4',
       // 未选中颜色
       inactiveTintColor: 'gray',
+      // android
+      showIcon:true,
+      // android
+      style:{
+        backgroundColor:'#fff'
+      }
     },
     animationEnabled: false,
     swipeEnabled: false,
