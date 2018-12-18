@@ -6,15 +6,35 @@ import {StackNavigator, TabNavigator,TabBarBottom} from "react-navigation";
 import WelcomePage from './WelcomePage';
 import HomePage from './HomePage';
 import {
-  Image, View, Text, StyleSheet
+  Image,
+  View,
+  StyleSheet
 } from "react-native";
 import InteractionPage from "./InteractionPage";
 import OnlinePage from "./OnlinePage";
 import MyPage from "./MyPage";
-import MainPage from './MainPage';
 import Badge from "react-native-tab-navigator/Badge";
-import SearchPage from './home/SearchPage'
+import SearchPage from './home/SearchPage';
+import LoginPage from './LoginPage';
+import CssConfig from '../config/CssConfig';
 
+
+
+const Me = StackNavigator({
+  LoginPage:{
+    screen:LoginPage,
+    navigationOptions: ({navigation}) => ({
+      title: '我的',
+      headerTitleStyle:{
+        color:CssConfig.mainBackgroundColor
+      },
+      headerStyle:{
+        backgroundColor:CssConfig.main
+      }
+
+    })
+  }
+});
 
 // tab 导航
 const TabNavigatorDemo = TabNavigator(
@@ -38,7 +58,7 @@ const TabNavigatorDemo = TabNavigator(
       }
     },
     Me: {
-      screen: MyPage,
+      screen: Me,
       navigationOptions: {
         title: '我的',
       }
@@ -129,6 +149,12 @@ const Setup = StackNavigator({
     navigationOptions:{
       header: null
     }
+  },
+  Login:{
+    screen:LoginPage,
+    navigationOptions: ({navigation}) => ({
+      title: 'hello'
+    })
   }
 });
 
