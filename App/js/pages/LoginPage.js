@@ -33,7 +33,26 @@ export default class LoginPage extends React.Component {
     });
   }
 
+  onClear(name:string){
+    switch (name) {
+      case 'username':
+        this.setState({
+          username: ''
+        });
+        break;
+      case 'password':
+        this.setState({
+          password: ''
+        });
+        break;
+    }
+  }
+
   render() {
+
+    const loginButtonBackgroundColor = !this.state.username || !this.state.password ? CssConfig.mainBorderColor : CssConfig.main;
+
+
     console.log(111);
     return (
       <View style={styles.container}>
@@ -45,15 +64,15 @@ export default class LoginPage extends React.Component {
               style={styles.searchBarInputStyle}
               underlineColorAndroid='transparent'
               onChangeText={(Text) => this.onChangeUsername(Text)}
-              ref={input => {
-                this.usernameClear = input
-              }}
+              // ref={input => {
+              //   this.usernameClear = input
+              // }}
             />
 
             <View style={{justifyContent: 'center', paddingTop: 5}}>
               {this.state.username ?
                 <Icon
-                  onPress={() => this.usernameClear.clear()}
+                  onPress={() => this.onClear('username')}
                   name='ios-close'
                   size={25}
                   color={CssConfig.mainTextColor}
@@ -68,16 +87,17 @@ export default class LoginPage extends React.Component {
               style={styles.searchBarInputStyle}
               underlineColorAndroid='transparent'
               onChangeText={(Text) => this.onChangePassword(Text)}
-              ref={input => {
-                this.passwordClear = input
-              }}
+              // ref={input => {
+              //   this.passwordClear = input
+              // }}
               secureTextEntry={true}
             />
 
             <View style={{justifyContent: 'center', paddingTop: 5}}>
               {this.state.password ?
                 <Icon
-                  onPress={() => this.passwordClear.clear()}
+                  // onPress={() => this.passwordClear.clear()}
+                  onPress={() => this.onClear('password')}
                   name='ios-close'
                   size={25}
                   color={CssConfig.mainTextColor}
@@ -93,14 +113,10 @@ export default class LoginPage extends React.Component {
 
           </View>
           <Button
-            // key={`${name}_${page}`}
-            accessible={true}
-            // accessibilityLabel={name}
-            accessibilityTraits='button'
+            disabled={this.state.username && this.state.password ? false : true}
             // onPress={() => onPressHandler(page)}
-            // onLayout={onLayoutHandler}
           >
-            <View style={styles.loginButtonBox}>
+            <View style={[styles.loginButtonBox, {backgroundColor:loginButtonBackgroundColor}]}>
               <Text style={styles.loginButtonText}>登录</Text>
             </View>
           </Button>
@@ -148,7 +164,6 @@ const styles = StyleSheet.create({
   loginButtonBox: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: CssConfig.main,
     height: 50,
     marginTop: 20,
     borderRadius: 5,
