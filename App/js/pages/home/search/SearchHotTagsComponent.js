@@ -10,41 +10,42 @@ import {
 } from 'react-native';
 
 import CssConfig from '../../../config/CssConfig';
+import SearchModel from '../../../model/SearchModel';
 
 export default class SearchHotTagsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      hotTags: [
-        '沙漠骆驼',
-        '盗将行',
-        '往后余生',
-        '不然',
-        '可不可以',
-        '光年之外',
-        '火花',
-        '沙骆驼',
-        '沙漠骆驼事实上',
-
-      ]
+      hotTags: []
     }
+  }
+
+  componentWillMount(): void {
+    SearchModel.getHostTags().then((result)=>{
+      this.setState({
+        hotTags:result.data
+      })
+    });
   }
 
 
   render() {
-    const list = this.state.hotTags.map((item, index) => {
-      return (
-        <TouchableWithoutFeedback
-          key={index}
-          onPress={() => DeviceEventEmitter.emit('searchHotTag', {value:item,type:'search'})}
-        >
-          <View style={styles.searchHotTagBox}>
-            <Text style={styles.searchHotTagText}>{item}</Text>
-          </View>
-        </TouchableWithoutFeedback>
-      );
-    });
+    let list = this.state.hotTags;
+    if (this.state.hotTags) {
+      list = this.state.hotTags.map((item, index) => {
+        return (
+          <TouchableWithoutFeedback
+            key={index}
+            onPress={() => DeviceEventEmitter.emit('searchHotTag', {value: item.key, type: 'search'})}
+          >
+            <View style={styles.searchHotTagBox}>
+              <Text style={styles.searchHotTagText}>{item.key}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        );
+      });
+    }
 
     return (
       <View style={styles.searchHot}>

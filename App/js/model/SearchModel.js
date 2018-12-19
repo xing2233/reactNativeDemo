@@ -6,6 +6,12 @@ export default class SearchModel extends BaseModel{
   }
 
   static getHostTags(){
-    super.Axios('/go/searchsHotWords')
+    return super.Axios(
+      'get',
+      '/go/searchsHotWords',
+      {a:1}
+      ).then((result)=>{
+        return result;
+    });
   }
 }

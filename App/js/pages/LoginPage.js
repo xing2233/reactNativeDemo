@@ -10,6 +10,8 @@ import {
 import CssConfig from "../config/CssConfig";
 import Icon from 'react-native-vector-icons/Ionicons';
 import Button from '../common/Button';
+import UserModel from '../model/UserModel';
+import MessageConfig from '../config/MessageConfig';
 
 export default class LoginPage extends React.Component {
   constructor(props) {
@@ -48,6 +50,13 @@ export default class LoginPage extends React.Component {
     }
   }
 
+  onLogin(){
+    if (!UserModel.login(this.state.username, this.state.password)){
+      Alert.alert(MessageConfig['10000']);
+    }
+  }
+
+
   render() {
 
     const loginButtonBackgroundColor = !this.state.username || !this.state.password ? CssConfig.mainBorderColor : CssConfig.main;
@@ -64,6 +73,7 @@ export default class LoginPage extends React.Component {
               style={styles.searchBarInputStyle}
               underlineColorAndroid='transparent'
               onChangeText={(Text) => this.onChangeUsername(Text)}
+              autoCapitalize='none'
               // ref={input => {
               //   this.usernameClear = input
               // }}
@@ -91,6 +101,7 @@ export default class LoginPage extends React.Component {
               //   this.passwordClear = input
               // }}
               secureTextEntry={true}
+              autoCapitalize='none'
             />
 
             <View style={{justifyContent: 'center', paddingTop: 5}}>
@@ -114,7 +125,7 @@ export default class LoginPage extends React.Component {
           </View>
           <Button
             disabled={this.state.username && this.state.password ? false : true}
-            // onPress={() => onPressHandler(page)}
+            onPress={() => this.onLogin()}
           >
             <View style={[styles.loginButtonBox, {backgroundColor:loginButtonBackgroundColor}]}>
               <Text style={styles.loginButtonText}>登录</Text>
