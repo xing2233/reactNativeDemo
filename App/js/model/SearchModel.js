@@ -8,10 +8,20 @@ export default class SearchModel extends BaseModel{
   static getHostTags(){
     return super.Axios(
       'get',
-      '/go/searchsHotWords',
-      {a:1}
+      '/go/searchsHotWords'
       ).then((result)=>{
         return result;
+    });
+  }
+
+
+  static getQuickSearch(keyword){
+    return super.Axios(
+      'get',
+      '/go/quicksearch',
+      {keyword:keyword}
+    ).then((result)=>{
+      return result;
     });
   }
 }

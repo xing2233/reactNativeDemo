@@ -16,20 +16,16 @@ import CssConfig from '../../config/CssConfig';
 import SearchHotTagsComponent from './search/SearchHotTagsComponent';
 import SearchBarComponent from './search/SearchBarComponent';
 
+
 export default class SearchPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: '',
-
-    }
   }
 
   render() {
     return (
       <View style={styles.container}>
         <SearchBarComponent {...this.props}/>
-        <SearchHotTagsComponent/>
       </View>
     );
   }

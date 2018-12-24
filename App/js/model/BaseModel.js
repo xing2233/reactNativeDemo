@@ -13,7 +13,7 @@ export default class BaseModel {
     method: string = 'get',
     url: string,
     params: Object,
-    headers: Object
+    headers: Object={}
   ) {
 
     let baseHeaders = await AsyncStorage.getItem(AsyncStorageConfig.USER_INFO);
